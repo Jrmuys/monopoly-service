@@ -58,12 +58,12 @@ function returnDataOr404(res, data) {
 
 function readWinners(req, res, next) {
   db.many(
-    `SELECT name, score, email
-            FROM Player, Game, PlayerGame
-            WHERE Player.ID = PlayerGame.PlayerID
-            AND Game.ID = PlayerGame.GameID
-            ORDER BY score DESC
-            LIMIT 1`
+    `SELECT name, score, emailAddress
+    FROM Player, Game, PlayerGame
+    WHERE Player.ID = PlayerGame.PlayerID
+    AND Game.ID = PlayerGame.GameID
+    AND score > 500
+    ORDER BY score DESC`
   )
     .then((data) => {
       res.send(data);
